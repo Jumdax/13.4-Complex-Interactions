@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public enum HandType
 {
@@ -17,11 +18,39 @@ public class Hand : MonoBehaviour
     public InputAction trackedAction = null;
     bool m_isCurrentlyTracked = false;
     
-    List<MeshRenderer> m_currentRenderers = new List<MeshRenderer>();
-    
+    List<Renderer> m_currentRenderers = new List<Renderer>();
+
+    Collider[] m_colliders = null;
+
+    public XRBaseInteractor interactor = null;
+
+    public bool isCollisionEnabled { get; private set; }
+
+    private void Awake()
+    {
+        if (interactor == null)
+        {
+            interactor = GetComponentInParent<XRBaseInteractor>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        interactor.onSelectEntered.AddListener(OnGrab);
+        interactor.onSelectExited.AddListener(OnRelease);
+    }
+
+    private void OnDisable()
+    {
+        interactor.onSelectEntered.RemoveListener(OnGrab);
+        interactor.onSelectExited.AddListener(OnRelease);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
+        m_colliders = GetComponentsInChildren<Collider>().Where(childCollider => !childCollider.isTrigger).ToArray();
         trackedAction.Enable();
         Hide();
     }
@@ -44,22 +73,60 @@ public class Hand : MonoBehaviour
 
     public void Show() 
     {
-        foreach (MeshRenderer renderer in m_currentRenderers)
+        foreach (Renderer renderer in m_currentRenderers)
         {
             renderer.enabled = true;
         }
         isHidden = false;
+        EnableCollisions(true);
     }
 
     public void Hide() 
     {
         m_currentRenderers.Clear();
-        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
-        foreach(MeshRenderer renderer in renderers)
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach(Renderer renderer in renderers)
         {
             renderer.enabled = false;
             m_currentRenderers.Add(renderer);
         }
         isHidden = true;
+        EnableCollisions(false);
     }
+
+    public void EnableCollisions(bool enabled)
+    {
+        if (isCollisionEnabled == enabled) return;
+        
+        isCollisionEnabled = enabled;
+        foreach(Collider collider in m_colliders)
+        {
+            collider.enabled = isCollisionEnabled;
+        }
+    }
+
+    void OnGrab(XRBaseInteractable grabbedObject)
+    {
+        HandControl ctrl = grabbedObject.GetComponent<HandControl>();
+        if (ctrl != null)
+        {
+            if(ctrl.hideHand)
+            {
+                Hide();
+            }
+        }
+    }
+
+    void OnRelease(XRBaseInteractable releasedObject)
+    {
+        HandControl ctrl = releasedObject.GetComponent<HandControl>();
+        if (ctrl != null)
+        {
+            if (ctrl.hideHand)
+            {
+                Show();
+            }
+        }
+    }
+
 }
