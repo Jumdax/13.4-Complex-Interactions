@@ -430,6 +430,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -23.77
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c3b98a8592bb0e84b9bb958a9422a8ca, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6bec60c8671f4b74298d1ad5400f0d88, type: 2}
     - target: {fileID: 8555334649533000000, guid: c3b98a8592bb0e84b9bb958a9422a8ca, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99995327
@@ -1817,6 +1821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: r_hand_skeletal_lowres
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d10d1b944ccd75c4da74910ec72f2df2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b99a02e9a88dcce47b8e1445247e54c7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1870,6 +1878,11 @@ PrefabInstance:
       addedObject: {fileID: 2095424104}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d10d1b944ccd75c4da74910ec72f2df2, type: 3}
+--- !u!95 &696787945 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d10d1b944ccd75c4da74910ec72f2df2, type: 3}
+  m_PrefabInstance: {fileID: 696787944}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2232,6 +2245,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -888472531933584793, guid: d10d1b944ccd75c4da74910ec72f2df2, type: 3}
   m_PrefabInstance: {fileID: 696787944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &931831300 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: c3b98a8592bb0e84b9bb958a9422a8ca, type: 3}
+  m_PrefabInstance: {fileID: 77441101}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &933311331
 GameObject:
@@ -3340,7 +3358,42 @@ MonoBehaviour:
       m_Action: Tracked
       m_Flags: 0
     m_Flags: 0
-  interactor: {fileID: 0}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 34ee6f14-3c9b-4a6c-ab01-065d9bae7b93
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 0a5a8421-dcd1-4395-bdf2-6381df68e45e
+      m_Path: <XRController>{RightHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 14c062b7-f631-4263-8330-8df8f8ee66cf
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 06d44101-bb4c-49f1-bf11-3cb4a54f2dfd
+      m_Path: <XRController>{RightHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  handAnimator: {fileID: 696787945}
+  interactor: {fileID: 1887349090}
 --- !u!1 &1466147017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,7 +3743,42 @@ MonoBehaviour:
       m_Action: Tracked
       m_Flags: 0
     m_Flags: 0
-  interactor: {fileID: 0}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: db8a74bf-c410-4257-b25b-a551f71da890
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9659c4be-402f-40c8-aa1f-d5547052ca92
+      m_Path: <XRController>{LeftHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e4514a0f-bbc8-49a5-a972-2740bed50e20
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f8e86132-f026-4040-9b98-b1bba9a52ae8
+      m_Path: <XRController>{LeftHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  handAnimator: {fileID: 931831300}
+  interactor: {fileID: 603001458}
 --- !u!4 &1825213991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -678174663316770576, guid: d10d1b944ccd75c4da74910ec72f2df2, type: 3}
