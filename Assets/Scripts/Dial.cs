@@ -28,7 +28,7 @@ public class Dial : MonoBehaviour
     {
         Debug.Log("DialUpdate -> " +  angle);
         Vector3 angles = m_startRotation;
-        angles.z += angle;
+        angles.y += angle;
         transform.localEulerAngles = angles;
     }
 }

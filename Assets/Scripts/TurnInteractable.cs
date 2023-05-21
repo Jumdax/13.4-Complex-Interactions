@@ -52,10 +52,13 @@ public class TurnInteractable : XRBaseInteractable
 
     IEnumerator UpdateTurn()
     {
-        Quaternion localRotation = GetLocalRotation(m_interactor.transform.rotation);
-        turnAngle = m_startingRotation.z - localRotation.eulerAngles.z;
-        onTurnUpdate?.Invoke(turnAngle);
-        yield return null;
+        while(m_interactor != null)
+        {
+            Quaternion localRotation = GetLocalRotation(m_interactor.transform.rotation);
+            turnAngle = m_startingRotation.y - localRotation.eulerAngles.y;
+            onTurnUpdate?.Invoke(turnAngle);
+            yield return null;
+        }
     }
 
     protected override void OnSelectEntered(XRBaseInteractor interactor)
